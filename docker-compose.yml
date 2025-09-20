@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - LOG_LEVEL=info
+      - LOG_TO_CONSOLE=true
+    env_file:
+      - .env.production
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "healthcheck.js"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    volumes:
+      - ./logs:/app/logs
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+# For production with database
+# services:
+#   app:
+#     build: .
+#     ports:
+#       - "3000:3000"
+#     environment:
+#       - NODE_ENV=production
+#       - PORT=3000
+#       - DATABASE_URL=postgresql://user:password@db:5432/strongprod
+#     depends_on:
+#       - db
+#     restart: unless-stopped
+#     volumes:
+#       - ./logs:/app/logs
+#     networks:
+#       - app-network
+#
+#   db:
+#     image: postgres:15-alpine
+#     environment:
+#       POSTGRES_DB: strongprod
+#       POSTGRES_USER: user
+#       POSTGRES_PASSWORD: password
+#     ports:
+#       - "5432:5432"
+#     volumes:
+#       - postgres_data:/var/lib/postgresql/data
+#       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+#     networks:
+#       - app-network
+#
+# volumes:
+#   postgres_data:

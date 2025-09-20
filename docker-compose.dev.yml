@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      target: base
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - LOG_LEVEL=debug
+      - LOG_TO_CONSOLE=true
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - ./logs:/app/logs
+    command: npm run dev
+    restart: unless-stopped
+    networks:
+      - dev-network
+    stdin_open: true
+    tty: true
+
+networks:
+  dev-network:
+    driver: bridge
