@@ -1,0 +1,25 @@
+{
+  "name": "strong_prod_backend",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "node --watch src/index.js"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Srinivaskoruprolu007/strong_prod_backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Srinivaskoruprolu007/strong_prod_backend/issues"
+  },
+  "homepage": "https://github.com/Srinivaskoruprolu007/strong_prod_backend#readme",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0"
+  }
+}
