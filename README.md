@@ -117,16 +117,36 @@ npm run format:check
 
 ### Authentication
 - **POST** `/api/v1/auth/sign-up` - User registration
-- **POST** `/api/v1/auth/sign-in` - User login (coming soon)
-- **POST** `/api/v1/auth/sign-out` - User logout (coming soon)
+- **POST** `/api/v1/auth/sign-in` - User login
+- **POST** `/api/v1/auth/sign-out` - User logout
+- **POST** `/api/v1/auth/refresh` - Refresh access token
+- **GET** `/api/v1/auth/profile` - Get user profile (protected)
+- **PUT** `/api/v1/auth/profile` - Update user profile (protected)
 
-### Example Signup Request
+### Example Requests
+
+**Signup:**
 ```json
 {
   "name": "John Doe",
   "email": "john@example.com",
   "password": "SecurePass123",
   "role": "user"
+}
+```
+
+**Signin:**
+```json
+{
+  "email": "john@example.com",
+  "password": "SecurePass123"
+}
+```
+
+**Update Profile:**
+```json
+{
+  "name": "John Updated"
 }
 ```
 
@@ -220,7 +240,7 @@ Health check test:
 curl http://localhost:3000/health
 ```
 
-Signup test:
+**Signup test:**
 ```bash
 curl -X POST http://localhost:3000/api/v1/auth/sign-up \
   -H "Content-Type: application/json" \
@@ -229,6 +249,22 @@ curl -X POST http://localhost:3000/api/v1/auth/sign-up \
     "email": "test@example.com", 
     "password": "TestPass123"
   }'
+```
+
+**Signin test:**
+```bash
+curl -X POST http://localhost:3000/api/v1/auth/sign-in \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "test@example.com",
+    "password": "TestPass123"
+  }'
+```
+
+**Get profile test (requires authentication cookie):**
+```bash
+curl -X GET http://localhost:3000/api/v1/auth/profile \
+  -H "Cookie: token=your_jwt_token_here"
 ```
 
 ## 🤝 Contributing
